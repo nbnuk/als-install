@@ -1,0 +1,244 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# This file is part of ALA ansible scripts
+#
+# TODO Licence
+
+DOCUMENTATION = '''
+---
+module: apache_vhost
+short_description: Add or remove an Apache virtual host to the apache sites-available directory.
+description:
+   - Add or remove an Apache virtual host.
+   - If a new vhost is added then it will still need to be enabled before it can be accessed.
+   - Debian and Ubuntu only
+version_added: "1.8.1"
+options:
+  name:
+    description:
+      - hostname of the virtual host to add or remove
+    required: true
+    default: null
+  filename:
+    description:
+      - if a new vhost is to be created, this filename will be used, defaults to the vhost value
+    required: false
+    default: None
+  state:
+    description:
+      - The vhost state
+      - absent is not current supported, use a2dissite instead?
+    required: false
+    default: present
+    choices: [ "present", "absent" ]
+  ssl:
+    description:
+      - Whether to enable SSL in the virtual host (default false)
+    required: false
+    default: false
+  ssl_cert_file:
+    description:
+      - Location of the SSL Certificate File to be used when SSL is enabled
+    required: false
+    default: None
+  ssl_key_file:
+    description:
+      - Location of the SSL Certificate Key file to be used when SSL is enabled
+    required: false
+    default: None
+  ssl_chain_file:
+    description:
+      - Location of the SSL Certificate Chain file to be used when SSL is enabled
+    required: false
+    default: None
+notes:
+   - This module uses I(python-augeas), a Python Augeas binding library. You must ensure that python-agueas is installed
+     on the host before using this module.
+requirements: [ python-augeas ]
+author: Simon Bear
+'''
+
+EXAMPLES = '''
+# Create a new virtual host with hostname app.example.com
+- apache_vhost: name=app.exmaple.com
+
+# Create a new virtual host with hostname app.example.com
+- apache_vhost: name=app.exmaple.com filename=app-example state=present ssl=false
+'''
+
+try:
+    import augeas
+except ImportError:
+    augeas_found = False
+else:
+    augeas_found = True
+
+
+class NotSupportedError(Exception):
+    pass
+
+DEFAULT_SERVER_ADMIN_EMAIL = 'support@ala.org.au'
+DEFAULT_DOCUMENT_ROOT = '/srv/%(vhost)s/www/'
+
+
+def load_augeas_for_file(root="/etc/apache2/sites-available", lens="httpd.lns", filename="*.conf", check_mode=False):
+    aug = augeas.Augeas(root, None, augeas.Augeas.NO_LOAD | augeas.Augeas.NO_MODL_AUTOLOAD | (
+        augeas.Augeas.SAVE_NOOP if check_mode else augeas.Augeas.SAVE_BACKUP))
+    aug.add_transform(lens, filename)
+    aug.load()
+    return aug
+
+
+def ensure_vhost_exists(aug, vhost, filename, ssl, ssl_cert_file, ssl_key_file, ssl_chain_file):
+    if not filename:
+        filename = vhost
+
+    port = "80"
+
+    if ssl:
+        port = "443"
+
+    existing = aug.match('/files//VirtualHost[directive="ServerName" and directive/arg="%(vhost)s"]' % locals())
+
+    if len(existing) == 0:
+        directiveIndex = 1
+        directivePath = "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]"
+
+        # Add a vhost with some default settings
+        
+        # Create a vhost in filename listening on all IPs on port 80 or 443 if SSL is enabled
+        aug.set("/files/%(filename)s.conf/VirtualHost[1]/arg" % locals(), "*:" + port)
+        
+        # Set ServerName directive
+        insert_directive(aug, filename, directivePath, "ServerName " + vhost, directiveIndex)
+        directiveIndex += 1
+
+        # Set ServerAdmin directive
+        insert_directive(aug, filename, directivePath, "ServerAdmin " + DEFAULT_SERVER_ADMIN_EMAIL, directiveIndex)
+        directiveIndex += 1
+
+        # Set SSL configuration if required
+        if ssl:
+            directiveIndex = insert_ssl_configuration(aug, filename, directiveIndex, ssl_cert_file, ssl_key_file, ssl_chain_file)
+
+        #Set DocumentRoot directive
+        insert_directive(aug, filename, directivePath, "DocumentRoot " + DEFAULT_DOCUMENT_ROOT % locals(), directiveIndex)
+        directiveIndex += 1
+
+        #Set directory permissions
+        aug.set("/files/%(filename)s.conf/VirtualHost[1]/Directory[1]/arg" % locals(), "/")
+        subDirectivePath = "/files/%(filename)s.conf/VirtualHost[1]/Directory[1]/directive[%(directiveIndex)s]"
+        insert_directive(aug, filename, subDirectivePath, "Require all granted", 1)
+        
+        aug.set("/files/%(filename)s.conf/VirtualHost[1]/Directory[2]/arg" % locals(), DEFAULT_DOCUMENT_ROOT % locals())
+        subDirectivePath = "/files/%(filename)s.conf/VirtualHost[1]/Directory[2]/directive[%(directiveIndex)s]"
+        subDirectiveIndex = 1
+        insert_directive(aug, filename, subDirectivePath, "Options Indexes FollowSymLinks MultiViews", subDirectiveIndex)
+        subDirectiveIndex += 1
+        insert_directive(aug, filename, subDirectivePath, "AllowOverride None", subDirectiveIndex)
+        subDirectiveIndex += 1
+        insert_directive(aug, filename, subDirectivePath, "Order allow,deny", subDirectiveIndex)
+        subDirectiveIndex += 1
+        insert_directive(aug, filename, subDirectivePath, "Allow from all", subDirectiveIndex)
+
+        #Set ErrorLog
+        insert_directive(aug, filename, directivePath, "ErrorLog ${APACHE_LOG_DIR}/error.log", directiveIndex)
+        directiveIndex += 1
+
+        #Set LogLevel
+        insert_directive(aug, filename, directivePath, "LogLevel warn", directiveIndex)
+        directiveIndex += 1
+
+        #Set Access log
+        insert_directive(aug, filename, directivePath, "CustomLog ${APACHE_LOG_DIR}/access.log combined", directiveIndex)
+        directiveIndex += 1
+
+        if ssl:
+            # If SSL is enabled, create a vhost in filename listening on all IPs on port 80 to redirect all traffic to port 443
+            aug.set("/files/%(filename)s.conf/VirtualHost[2]/arg" % locals(), "*:80")
+            directivePath = "/files/%(filename)s.conf/VirtualHost[2]/directive[%(directiveIndex)s]"
+            insert_directive(aug, filename, directivePath, "ServerName " + vhost, 1)
+            insert_directive(aug, filename, directivePath, "Redirect permanent / https://" + vhost + "/", 2)
+
+
+
+def insert_ssl_configuration(aug, filename, directiveIndex, ssl_cert_file, ssl_key_file, ssl_chain_file):
+    insert_directive(aug, filename, "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]", "SSLEngine on", directiveIndex) 
+    directiveIndex += 1
+    insert_directive(aug, filename, "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]", "SSLProtocol all -SSLv2 -SSLv3", directiveIndex) 
+    directiveIndex += 1
+    insert_directive(aug, filename, "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]", "SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA", directiveIndex) 
+    directiveIndex += 1
+    if ssl_cert_file:
+        insert_directive(aug, filename, "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]", "SSLCertificateFile %(ssl_cert_file)s" % locals(), directiveIndex)
+        directiveIndex += 1
+
+    if ssl_key_file:
+        insert_directive(aug, filename, "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]", "SSLCertificateKeyFile %(ssl_key_file)s" % locals(), directiveIndex)
+        directiveIndex += 1
+    
+    if ssl_chain_file:
+        insert_directive(aug, filename, "/files/%(filename)s.conf/VirtualHost[1]/directive[%(directiveIndex)s]", "SSLCertificateChainFile %(ssl_chain_file)s" % locals(), directiveIndex)
+        directiveIndex += 1
+
+    return directiveIndex
+
+
+def insert_directive(aug, filename, path, directive, directiveIndex):
+    parts = directive.split(" ")
+
+    aug.set(path % locals(), parts[0])
+    for index in range(1, len(parts)):
+        argPath = path + "/arg[%(index)s]"
+        aug.set(argPath % locals(), parts[index])
+
+
+def main():
+    module = AnsibleModule(
+        argument_spec=dict(
+            name=dict(required=True),
+            filename=dict(default=None, required=False),
+            state=dict(default="present", choices=["absent", "present"]),
+            ssl=dict(default=False, required=False, type = "bool" ),
+            ssl_cert_file=dict(default=None, required=False),
+            ssl_key_file=dict(default=None, required=False),
+            ssl_chain_file=dict(default=None, required=False)
+        ),
+        supports_check_mode=True
+    )
+
+    vhost = module.params["name"]
+    filename = module.params["filename"]
+    state = module.params["state"]
+    ssl = module.params["ssl"]
+    ssl_cert_file = module.params["ssl_cert_file"]   
+    ssl_key_file = module.params["ssl_key_file"]   
+    ssl_chain_file = module.params["ssl_chain_file"]   
+
+    try:
+        aug = load_augeas_for_file(check_mode=module.check_mode)
+    except Exception, e:
+        module.fail_json(msg="unable to connect to Augeas: %s" % e)
+        return
+
+    if state == 'present':
+        ensure_vhost_exists(aug, vhost, filename, ssl, ssl_cert_file, ssl_key_file, ssl_chain_file)
+    elif state == 'absent':
+        module.fail_json(msg="state=absent is not implemented yet, maybe just a2dissite %(filename)s instead?" % locals())
+        return
+
+    try:
+        aug.save()
+        saved = aug.get("/augeas/events/saved")
+        errors = aug.get("/augeas//errors")
+        aug.close()
+        changed = True if saved else False
+        module.exit_json(changed=True if saved else False, name=vhost, saved=saved, errors=errors)
+    except Exception, e:
+        module.fail_json(msg="exception while performing augeas operations: %s" % e)
+
+# import module snippets
+from ansible.module_utils.basic import *
+
+main()

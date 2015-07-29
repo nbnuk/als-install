@@ -1,0 +1,6 @@
+- hosts: homepage
+  roles:
+    - common  
+    - augeas  
+    - apache
+    - homepage

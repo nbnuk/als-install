@@ -1,0 +1,5 @@
+[homepage]
+www.als.scot
+
+[homepage:vars]
+homepage_hostname=www.als.scot

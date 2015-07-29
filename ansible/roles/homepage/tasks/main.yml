@@ -1,0 +1,17 @@
+- name: Add entries for host into hosts file
+  lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line="127.0.0.1 localhost {{ homepage_hostname | default('') }} ala.vagrant.dev ala demo.vagrant1.ala.org.au vagrant1.ala.org.au" owner=root group=root mode=0644
+
+- include: ../../apache_vhost/tasks/main.yml hostname='{{ homepage_hostname }}'
+  tags:
+    - homepage
+
+- name: Ensure data directory exists
+  file: path=/srv/{{ homepage_hostname }}/www/html state=directory owner=root group=root
+  tags:
+    - homepage
+
+- name: Copy welcome page (Debian)
+  template: src=index.html dest=/srv/{{ homepage_hostname }}/www/index.html mode=0666
+  tags:
+    - homepage
+    - html
