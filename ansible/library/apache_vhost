@@ -136,7 +136,7 @@ def ensure_vhost_exists(aug, vhost, filename, ssl, ssl_cert_file, ssl_key_file, 
         subDirectiveIndex = 1
         insert_directive(aug, filename, subDirectivePath, "Options Indexes FollowSymLinks MultiViews", subDirectiveIndex)
         subDirectiveIndex += 1
-        insert_directive(aug, filename, subDirectivePath, "AllowOverride None", subDirectiveIndex)
+        insert_directive(aug, filename, subDirectivePath, "AllowOverride All", subDirectiveIndex)
         subDirectiveIndex += 1
         insert_directive(aug, filename, subDirectivePath, "Order allow,deny", subDirectiveIndex)
         subDirectiveIndex += 1

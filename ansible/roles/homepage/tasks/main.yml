@@ -6,12 +6,25 @@
     - homepage
 
 - name: Ensure data directory exists
-  file: path=/srv/{{ homepage_hostname }}/www/html state=directory owner=root group=root
+  file: path=/srv/{{ homepage_hostname }}/www/{{ item }} state=directory owner=root group=root
+  with_items:
+    - "commonui-bs2"
+    - "commonui-bs3"
   tags:
     - homepage
 
 - name: Copy welcome page (Debian)
-  template: src=index.html dest=/srv/{{ homepage_hostname }}/www/index.html mode=0666
+  template: src={{item}} dest=/srv/{{ homepage_hostname }}/www/{{ item }} mode=0666
+  with_items:
+    - ".htaccess"
+    - "index.html"
+    - "404.html"
+    - "500.html"
+    - "503.html"
+    - "commonui-bs2/banner.html"
+    - "commonui-bs2/footer.html"
+    - "commonui-bs3/banner.html"
+    - "commonui-bs3/footer.html"
   tags:
     - homepage
     - html

@@ -15,14 +15,13 @@
 	.image-cite { position:absolute; bottom:15px;  float:left; font-size: 12px;}
 	</style>
 </head>	
-<title>{{ orgNameLong }}</title>
+<title>Down for maintenance | {{ orgNameLong | default('Atlas')}} </title>
 <body>
     <div class="jumbotron full-width">
       <div id="intro">
       	<div class="content">
 	        <h1>{{ orgNameLong }}</h1>
-	        <p>{{ tag_line }}</p>
-	        <p>Follow us on <a href="https://twitter.com/{{ twitter_id }}">twitter</a></p>
+	        <p>This component is currently down for maintenance </p>
 		    <div class="image-cite">
 			    <cite>Image by: {{ image_credit }}</cite>
 		    </div>	        

@@ -1,0 +1,10 @@
+
+- name: Copy apache pages
+  template: src={{item}} dest=/srv/{{ host }}/www/{{ item }} mode=0666
+  with_items:
+    - ".htaccess"
+    - "404.html"
+    - "500.html"
+    - "503.html"
+  tags:
+    - html

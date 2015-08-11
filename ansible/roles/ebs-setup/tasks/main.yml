@@ -1,0 +1,19 @@
+- name: Create data directory
+  command: "mkdir /data" 
+  tags:
+    - ebs
+
+- name: Set filesystem
+  command: "mkfs.ext4 /dev/xvdb" 
+  tags:
+    - ebs
+
+- name: Mount EBS volume
+  command: "mount -t ext4 /dev/xvdb /data" 
+  tags:
+    - ebs
+
+- name: Setup mounts on restart
+  command: "echo \"/dev/xvdb /data auto noatime 0 0\" | sudo tee -a /etc/fstab" 
+  tags:
+    - ebs

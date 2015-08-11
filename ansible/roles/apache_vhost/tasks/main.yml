@@ -41,7 +41,7 @@
   command: a2ensite {{ hostname }}.conf
   when: vhost_required
   args:
-    creates: /etc/apache2/sites-enabled/{{hostname}}
+    creates: /etc/apache2/sites-enabled/{{ hostname }}
   notify: 
     - reload apache
 

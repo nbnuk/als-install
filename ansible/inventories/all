@@ -1,0 +1,14 @@
+[species-ws]
+species-ws.als.scot
+
+[species-ws:vars]
+is_vagrant=false
+orgNameLong=Atlas of Living Scotland
+background_image_url=https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Papageitaucher_Fratercula_arctica.jpg/2560px-Papageitaucher_Fratercula_arctica.jpg
+image_credit=Richard Bartz
+twitter_id=AoLScot
+facebook_id=AoLScot
+contact_email=info@als.scot
+google_analytics_id=UA-65706150-1
+host=species-ws.als.scot
+homepage_hostname=species-ws.als.scot
