@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Amazon EC2 scripts
 ==================
 
@@ -70,3 +71,7 @@ This was done using the following script
 ansible-als -i als-install/ansible/inventories/... als-install/ansible/ebs-setup.yml
 
 
+=======
+# als-install
+Ansible scripts for installation of Atlas of Living Scotland
+>>>>>>> origin/master
