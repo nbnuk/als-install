@@ -1,17 +1,6 @@
-<<<<<<< HEAD
-Amazon EC2 scripts
-==================
-
-www.als.scot = t2.micro
-registry.als.scot = t2.small, ebs = 20gb
-images.als.scot = c4.2xlarge, ebs = 200gb
-occurrence-db.als.scot = c4.4xlarge, ebs = 200gb
-auth.als.scot = t2.medium, ebs = 20gb
-
-
-====================
-Ansible scripts ran
-====================
+======================================
+Ansible scripts ran to setup ALS
+======================================
 
 export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u ubuntu -s'
 
@@ -70,8 +59,11 @@ echo "/dev/xvdb /data auto noatime 0 0" | sudo tee -a /etc/fstab
 This was done using the following script
 ansible-als -i als-install/ansible/inventories/... als-install/ansible/ebs-setup.yml
 
+Amazon EC2 scripts
+==================
 
-=======
-# als-install
-Ansible scripts for installation of Atlas of Living Scotland
->>>>>>> origin/master
+www.als.scot = t2.micro
+registry.als.scot = t2.small, ebs = 20gb
+images.als.scot = c4.2xlarge, ebs = 200gb
+occurrence-db.als.scot = c4.4xlarge, ebs = 200gb
+auth.als.scot = t2.medium, ebs = 20gb
