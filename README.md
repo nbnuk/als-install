@@ -1,6 +1,6 @@
-======================================
-Ansible scripts ran to setup ALS
-======================================
+
+== Ansible scripts ran to setup ALS ==
+
 
 export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u ubuntu -s'
 
