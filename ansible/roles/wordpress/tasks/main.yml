@@ -1,0 +1,30 @@
+- name: ensure mysql is running (this is idempotent so safe)
+  service: name=mysql state=started
+  tags:
+    - db
+    - wordpress
+
+- name: create wordpress DB
+  mysql_db: name=wordpress state=present encoding=utf8
+  register: dbschema
+  tags:
+    - db
+    - wordpress
+
+- name: create wordpress DB user
+  mysql_user: name={{wordpress_db_user}} password={{wordpress_db_password}} priv=wordpress.*:ALL state=present
+  tags:
+    - db
+    - wordpress
+
+- name: PHP install
+  command: "apt-get update" 
+  tags:
+    - php
+    - wordpress  
+
+- name: PHP install
+  command: "apt-get install php5-gd libssh2-php" 
+  tags:
+    - php
+    - wordpress  
