@@ -24,7 +24,7 @@
     - wordpress  
 
 - name: PHP install
-  command: "apt-get install php5-gd libssh2-php" 
+  command: "apt-get install php5 libapache2-mod-php5 php5-mcrypt" 
   tags:
     - php
     - wordpress  

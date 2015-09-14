@@ -1,0 +1,14 @@
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+ErrorDocument 503 /503.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^commonui-bs3/banner.html$ /commonui-bs3/banner.php [NC,L]
+RewriteRule ^commonui-bs2/banner.html$ /commonui-bs2/banner.php [NC,L]
+RewriteRule ^commonui-bs3/footer.html$ /commonui-bs3/footer.php [NC,L]
+RewriteRule ^commonui-bs2/footer.html$ /commonui-bs2/footer.php [NC,L]
+
+</IfModule>

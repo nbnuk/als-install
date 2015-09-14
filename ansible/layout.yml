@@ -1,0 +1,6 @@
+- hosts: layout
+  roles:
+    - common  
+    - augeas   
+    - apache 
+    - layout

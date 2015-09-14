@@ -29,17 +29,21 @@ ansible-als -i als-install/ansible/inventories/auth.als.scot ala-install/ansible
 ansible-als -i als-install/ansible/inventories/ecodata.als.scot ala-install/ansible/ecodata.yml 
 ansible-als -i als-install/ansible/inventories/sightings.als.scot ala-install/ansible/pigeonhole-standalone.yml 
 
-7) Species pages webservices & UI (BIE)
+7) Index server
+
+ansible-als -i ansible-inventories/als/index.als.scot ala-install/ansible/solr-standalone.yml 
+
+8) Species pages webservices & UI (BIE)
 
 ansible-als -i ansible-inventories/als/species-ws.als.scot ala-install/ansible/bie-index.yml 
 ansible-als -i ansible-inventories/als/species.als.scot ala-install/ansible/bie-hub.yml 
 
-8) Biocache webservices & UI
+9) Biocache webservices & UI
 
 ansible-als -i ansible-inventories/als/records-ws.als.scot ala-install/ansible/biocache-service.yml 
 ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/biocache-hub.yml 
 
-9) Install UK version of the name matching index
+10) Install UK version of the name matching index
 
 ansible-als -i ansible-inventories/als/name-index als-install/ansible/name-index.yml 
 

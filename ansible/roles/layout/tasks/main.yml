@@ -1,0 +1,47 @@
+- name: Add entries for host into hosts file
+  lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line="127.0.0.1 localhost {{ layout_hostname | default('') }} ala.vagrant.dev ala demo.vagrant1.ala.org.au vagrant1.ala.org.au" owner=root group=root mode=0644
+
+- name: ensure ssl certificate directory exists (if required)
+  file: path={{ ssl_certificate_server_dir }} state=directory owner=root group=root
+  tags:
+    - apache_vhost
+
+- name: copy SSL files (if required)
+  copy: src={{item}} dest={{ssl_certificate_server_dir}}
+  with_items:
+    - "{{ssl_certificate_local_dir}}/{{ssl_cert_file}}"
+    - "{{ssl_certificate_local_dir}}/{{ssl_key_file}}"
+    - "{{ssl_certificate_local_dir}}/{{ssl_chain_file}}"
+  tags:
+    - apache_vhost
+    
+apt-get install php5
+apt-get install php5-curl
+
+
+#
+# WAR file deployment and virtual host configuration
+#
+
+- include: ../../apache_vhost/tasks/main.yml 
+     context_path='/' 
+     hostname='{{ layout_hostname }}' 
+     ssl="true"
+     ssl_cert_file='{{ssl_certificate_server_dir}}/{{ ssl_cert_file }}'
+     ssl_key_file='{{ssl_certificate_server_dir}}/{{ ssl_key_file }}'
+     ssl_chain_file='{{ssl_certificate_server_dir}}/{{ ssl_chain_file }}'
+  tags:
+    - cas
+    - deploy
+    - apache_vhost
+
+
+# - include: ../../apache_vhost/tasks/main.yml hostname='{{ layout_hostname }}'
+#   tags:
+#     - layout
+
+- name: Copy content
+  copy:  src="www" dest="/srv/{{ layout_hostname }}/" mode=0666
+  tags:
+    - content
+    - layout
