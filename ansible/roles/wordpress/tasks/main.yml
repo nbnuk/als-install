@@ -17,14 +17,57 @@
     - db
     - wordpress
 
-- name: PHP install
-  command: "apt-get update" 
+- name: install PHP
+  apt: pkg={{item}} state=present
+  with_items:
+    - php5-gd
+    - libssh2-php
+    - libapache2-mod-php5
+    - php5-mysql
   tags:
     - php
     - wordpress  
 
-- name: PHP install
-  command: "apt-get install php5 libapache2-mod-php5 php5-mcrypt" 
+- name: enabled mod_rewrite
+  apache2_module: name=rewrite state=present
   tags:
-    - php
+    - wordpress    
+
+- name: Download wordpress
+  get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/latest.tar.gz
+  tags:
+    - wordpress
+
+- name: Extract wordpress
+  command: "tar xzvf /tmp/latest.tar.gz"
+  tags:
+    - wordpress
+
+- name: Extract wordpress
+  command: "rsync -avP /tmp/wordpress/ /var/www/html/"
+  tags:
+    - wordpress
+
+- name: set permissions for wordpress
+  file: path=/var/www/html/ mode=777
+  tags:
+    - wordpress
+
+- name: ensure tomcat context directory exists
+  file: path=/var/www/html/ state=directory owner=ubuntu group="www-data"
+  tags:
     - wordpress  
+
+- name: Wordpress config
+  template: src={{item}} dest=/var/www/html/{{ item }} mode=0666
+  with_items:
+    - "wp-config.php"
+    - ".htaccess"
+  tags:
+    - wordpress  
+    - config
+
+- name: Remove existing index.html
+  command: "rm /var/www/html/index.html"
+  tags:
+    - wordpress

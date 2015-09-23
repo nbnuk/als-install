@@ -1,33 +1,41 @@
 
-== Ansible scripts ran to setup ALS ==
+# Ansible scripts ran to setup ALS
 
+Set an unix alias up
 
+```
 export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u ubuntu -s'
+```
 
 1) Install homepage
 
+```
 ansible-als -i als-install/ansible/inventories/www.als.scot als-install/ansible/homepage.yml
+```
 
 2) Install registry (collectory)
 
+```
 ansible-als -i als-install/ansible/inventories/registry.als.scot ala-install/ansible/collectory.yml
+```
 
 3) Install occurrence backend (biocache database)
-
+```
 ansible-als -i als-install/ansible/inventories/occurrence-db.als.scot ala-install/ansible/biocache-backend.yml
-
+```
 4) Install images service
-
+```
 ansible-als -i als-install/ansible/inventories/images.als.scot ala-install/ansible/image-service.yml
-
+```
 5) Install central authentication service
-
+```
 ansible-als -i als-install/ansible/inventories/auth.als.scot ala-install/ansible/auth2-standalone.yml
-
+```
 6) Sightings
-
+```
 ansible-als -i als-install/ansible/inventories/ecodata.als.scot ala-install/ansible/ecodata.yml 
 ansible-als -i als-install/ansible/inventories/sightings.als.scot ala-install/ansible/pigeonhole-standalone.yml 
+<<<<<<< HEAD
 
 7) Index server
 
@@ -45,8 +53,23 @@ ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/bioc
 
 10) Install UK version of the name matching index
 
+=======
+```
+7) Species pages webservices & UI (BIE)
+```
+ansible-als -i ansible-inventories/als/species-ws.als.scot ala-install/ansible/bie-index.yml 
+ansible-als -i ansible-inventories/als/species.als.scot ala-install/ansible/bie-hub.yml 
+```
+8) Biocache webservices & UI
+```
+ansible-als -i ansible-inventories/als/records-ws.als.scot ala-install/ansible/biocache-service.yml 
+ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/biocache-hub.yml 
+```
+9) Install UK version of the name matching index
+```
+>>>>>>> origin/master
 ansible-als -i ansible-inventories/als/name-index als-install/ansible/name-index.yml 
-
+```
 
 ============================================================
 EC2 mounting instructions - for EBS volume
