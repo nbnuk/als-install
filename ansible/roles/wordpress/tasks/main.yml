@@ -69,5 +69,6 @@
 
 - name: Remove existing index.html
   command: "rm /var/www/html/index.html"
+  ignore_errors: yes  
   tags:
     - wordpress
