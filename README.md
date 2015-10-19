@@ -26,7 +26,7 @@ ansible-als -i als/inventories/www.als.scot als-install/ansible/wordpress.yml
 
 ### Install registry (collectory)
 
-This will se
+This will setup the main registry for the system, the collectory.
 
 ```
 ansible-als -i ansible-inventories/als/registry.als.scot ala-install/ansible/collectory.yml
@@ -40,17 +40,24 @@ ansible-als -i ansible-inventories/als/occurrence-db.als.scot ala-install/ansibl
 
 ### Install images service
 
+Install the image services and database backend.
+
 ```
 ansible-als -i ansible-inventories/als/images.als.scot ala-install/ansible/image-service.yml
 ```
 
 ### Install central authentication service
 
+Install the single sign on authentication component.
+
 ```
 ansible-als -i ansible-inventories/als/auth.als.scot ala-install/ansible/auth2-standalone.yml
 ```
 
 ### Install sightings
+
+Install the ad-hoc sightings components.
+
 ```
 ansible-als -i ansible-inventories/als/ecodata.als.scot ala-install/ansible/ecodata.yml 
 ansible-als -i ansible-inventories/als/sightings.als.scot ala-install/ansible/pigeonhole-standalone.yml 
@@ -82,6 +89,9 @@ ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/bioc
 ```
 
 ### Install UK version of the name matching index
+
+This script installs the name index on machines using the lucene name indexes. This would include biocache webservices, lists tool and a few other components.
+
 ```
 ansible-als -i ansible-inventories/als/name-index als-install/ansible/name-index.yml 
 ```
