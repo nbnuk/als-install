@@ -26,17 +26,23 @@ ansible-als -i ansible-inventories/als/registry.als.scot ala-install/ansible/col
 ```
 
 ### Install occurrence backend (biocache database)
+
 ```
 ansible-als -i ansible-inventories/als/occurrence-db.als.scot ala-install/ansible/biocache-backend.yml
 ```
+
 ### Install images service
+
 ```
 ansible-als -i ansible-inventories/als/images.als.scot ala-install/ansible/image-service.yml
 ```
+
 ### Install central authentication service
+
 ```
 ansible-als -i ansible-inventories/als/auth.als.scot ala-install/ansible/auth2-standalone.yml
 ```
+
 ### Install sightings
 ```
 ansible-als -i ansible-inventories/als/ecodata.als.scot ala-install/ansible/ecodata.yml 
@@ -45,21 +51,33 @@ ansible-als -i ansible-inventories/als/sightings.als.scot ala-install/ansible/pi
 
 ### Index server
 
+This script will setup SOLR on a standalone server.
+
+```
 ansible-als -i ansible-inventories/als/index.als.scot ala-install/ansible/solr-standalone.yml 
+```
 
 ### Species pages webservices & UI (BIE)
 
+This script will setup species pages and webservices on a standalone server.
+
+```
 ansible-als -i ansible-inventories/als/species-ws.als.scot ala-install/ansible/bie-index.yml 
 ansible-als -i ansible-inventories/als/species.als.scot ala-install/ansible/bie-hub.yml 
+```
 
 ### Biocache webservices & UI
 
+This script will setup occurrence search pages and webservices on a standalone server.
+```
 ansible-als -i ansible-inventories/als/records-ws.als.scot ala-install/ansible/biocache-service.yml 
 ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/biocache-hub.yml 
+```
 
 ### Install UK version of the name matching index
-
+```
 ansible-als -i ansible-inventories/als/name-index als-install/ansible/name-index.yml 
+```
 
 ============================================================
 EC2 mounting instructions - for EBS volume
