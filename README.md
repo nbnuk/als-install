@@ -18,11 +18,15 @@ export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u
 
 ### Install wordpress
 
+Wordress is used for some static content and the homepage of the site.
+
 ```
 ansible-als -i als/inventories/www.als.scot als-install/ansible/wordpress.yml
 ```
 
 ### Install registry (collectory)
+
+This will se
 
 ```
 ansible-als -i ansible-inventories/als/registry.als.scot ala-install/ansible/collectory.yml
@@ -88,20 +92,16 @@ EC2 mounting instructions - for EBS volume
 
 EBS volumes where used for occurrence-db.als.scot and images.als.scot.
 
+```
 sudo fdisk -l
 sudo mkdir /data
 sudo mkfs.ext4 /dev/xvdb
 sudo mount -t ext4 /dev/xvdb /data
 echo "/dev/xvdb /data auto noatime 0 0" | sudo tee -a /etc/fstab
+```
 
 This was done using the following script
+
+```
 ansible-als -i ansible-inventories/als/... als-install/ansible/ebs-setup.yml
-
-Amazon EC2 scripts
-==================
-
-www.als.scot = t2.micro
-registry.als.scot = t2.small, ebs = 20gb
-images.als.scot = c4.2xlarge, ebs = 200gb
-occurrence-db.als.scot = c4.4xlarge, ebs = 200gb
-auth.als.scot = t2.medium, ebs = 20gb
+```
