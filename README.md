@@ -16,6 +16,11 @@ To reduce typing, set an unix alias up like so which points to the PEM file that
 export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u ubuntu -s'
 ```
 
+## Architecture
+
+
+
+
 ### Install wordpress
 
 Wordress is used for some static content and the homepage of the site.
