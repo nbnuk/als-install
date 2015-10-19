@@ -1,7 +1,7 @@
 
-# Ansible scripts ran to setup Atlas of Living Scotland
+Setup the Atlas of Living Scotland
 
-The Atlas of Living Scotland has been setup using a selection of ansible scripts.
+The Atlas of Living Scotland has been setup using a selection of [ansible](http://www.ansible.com/) scripts.
 Most of these scripts are in the Atlas of Living Australia (ALA) repository [ala-install](http://github.com/atlasoflivingaustralia/ala-install).
 
 
