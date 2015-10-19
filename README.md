@@ -1,75 +1,65 @@
 
-# Ansible scripts ran to setup ALS
+# Ansible scripts ran to setup Atlas of Living Scotland
 
-Set an unix alias up
+The Atlas of Living Scotland has been setup using a selection of ansible scripts.
+Most of these scripts are in the Atlas of Living Australia (ALA) repository [ala-install](http://github.com/atlasoflivingaustralia/ala-install).
+
+
+## Getting started
+
+To reduce typing, set an unix alias up like so which points to the PEM file that you will use against the virtual machines:
 
 ```
 export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u ubuntu -s'
 ```
 
-1) Install homepage
+### Install wordpress
 
 ```
-ansible-als -i als-install/ansible/inventories/www.als.scot als-install/ansible/homepage.yml
+ansible-als -i als/inventories/www.als.scot als-install/ansible/wordpress.yml
 ```
 
-2) Install registry (collectory)
+### Install registry (collectory)
 
 ```
-ansible-als -i als-install/ansible/inventories/registry.als.scot ala-install/ansible/collectory.yml
+ansible-als -i ansible-inventories/als/registry.als.scot ala-install/ansible/collectory.yml
 ```
 
-3) Install occurrence backend (biocache database)
+### Install occurrence backend (biocache database)
 ```
-ansible-als -i als-install/ansible/inventories/occurrence-db.als.scot ala-install/ansible/biocache-backend.yml
+ansible-als -i ansible-inventories/als/occurrence-db.als.scot ala-install/ansible/biocache-backend.yml
 ```
-4) Install images service
+### Install images service
 ```
-ansible-als -i als-install/ansible/inventories/images.als.scot ala-install/ansible/image-service.yml
+ansible-als -i ansible-inventories/als/images.als.scot ala-install/ansible/image-service.yml
 ```
-5) Install central authentication service
+### Install central authentication service
 ```
-ansible-als -i als-install/ansible/inventories/auth.als.scot ala-install/ansible/auth2-standalone.yml
+ansible-als -i ansible-inventories/als/auth.als.scot ala-install/ansible/auth2-standalone.yml
 ```
-6) Sightings
+### Install sightings
 ```
-ansible-als -i als-install/ansible/inventories/ecodata.als.scot ala-install/ansible/ecodata.yml 
-ansible-als -i als-install/ansible/inventories/sightings.als.scot ala-install/ansible/pigeonhole-standalone.yml 
-<<<<<<< HEAD
+ansible-als -i ansible-inventories/als/ecodata.als.scot ala-install/ansible/ecodata.yml 
+ansible-als -i ansible-inventories/als/sightings.als.scot ala-install/ansible/pigeonhole-standalone.yml 
+```
 
-7) Index server
+### Index server
 
 ansible-als -i ansible-inventories/als/index.als.scot ala-install/ansible/solr-standalone.yml 
 
-8) Species pages webservices & UI (BIE)
+### Species pages webservices & UI (BIE)
 
 ansible-als -i ansible-inventories/als/species-ws.als.scot ala-install/ansible/bie-index.yml 
 ansible-als -i ansible-inventories/als/species.als.scot ala-install/ansible/bie-hub.yml 
 
-9) Biocache webservices & UI
+### Biocache webservices & UI
 
 ansible-als -i ansible-inventories/als/records-ws.als.scot ala-install/ansible/biocache-service.yml 
 ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/biocache-hub.yml 
 
-10) Install UK version of the name matching index
+### Install UK version of the name matching index
 
-=======
-```
-7) Species pages webservices & UI (BIE)
-```
-ansible-als -i ansible-inventories/als/species-ws.als.scot ala-install/ansible/bie-index.yml 
-ansible-als -i ansible-inventories/als/species.als.scot ala-install/ansible/bie-hub.yml 
-```
-8) Biocache webservices & UI
-```
-ansible-als -i ansible-inventories/als/records-ws.als.scot ala-install/ansible/biocache-service.yml 
-ansible-als -i ansible-inventories/als/records.als.scot ala-install/ansible/biocache-hub.yml 
-```
-9) Install UK version of the name matching index
-```
->>>>>>> origin/master
 ansible-als -i ansible-inventories/als/name-index als-install/ansible/name-index.yml 
-```
 
 ============================================================
 EC2 mounting instructions - for EBS volume
@@ -84,7 +74,7 @@ sudo mount -t ext4 /dev/xvdb /data
 echo "/dev/xvdb /data auto noatime 0 0" | sudo tee -a /etc/fstab
 
 This was done using the following script
-ansible-als -i als-install/ansible/inventories/... als-install/ansible/ebs-setup.yml
+ansible-als -i ansible-inventories/als/... als-install/ansible/ebs-setup.yml
 
 Amazon EC2 scripts
 ==================
