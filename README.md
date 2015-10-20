@@ -18,7 +18,7 @@ export alias ansible-als='ansible-playbook --private-key ~/.ssh/XXXXXXXXX.pem -u
 
 ## Architecture
 
-
+![Arch.jpg](Arch.jpg)
 
 
 ### Install wordpress
