@@ -120,3 +120,16 @@ This was done using the following script
 ```
 ansible-als -i ansible-inventories/als/... als-install/ansible/ebs-setup.yml
 ```
+
+============================================================
+Microsoft Azure mounting instructions
+============================================================
+
+```
+sudo fdisk -l
+sudo mkdir /data
+sudo mkfs.ext4 /dev/sdc
+sudo mount -t ext4 /dev/sdc /data
+echo "/dev/sdc /data auto noatime 0 0" | sudo tee -a /etc/fstab
+```
+
