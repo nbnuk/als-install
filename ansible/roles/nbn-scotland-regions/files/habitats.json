@@ -1,0 +1,339 @@
+{
+  "description": "These habitats are derived using the EUNIS Land Cover Scotland geospatial layer provided by Scottish Natural Heritage. This is a Scotland raster based (10m) landcover made up of best available national data classified according to the EUNIS (EUropean Nature Information System). The main purpose of the landcover is to provide well-known, nationally consistent information for SNH\u2019s national habitat network models. Secondary purposes include input for other analysis projects as well as map backdrops.",
+  "layerName": "eunis_land_cover_scotland_polygonize",
+  "metadataLink": "https://gateway.snh.gov.uk/natural-spaces/dataset.jsp?dsid=EUNIS",
+  "tree": {
+    "A": {
+      "children": {
+        "A1": {
+          "guid": "A1",
+          "name": "Littoral rock and other hard substrata",
+          "pid": "1000:8",
+          "rasterID": "8"
+        },
+        "A2": {
+          "children": {
+            "A2.5": {
+              "guid": "A2.5",
+              "name": "Coastal saltmarshes and saline reedbeds",
+              "pid": "1000:29",
+              "rasterID": "29"
+            }
+          },
+          "guid": "A2",
+          "name": "Littoral sediments",
+          "pid": "1000:9",
+          "rasterID": "9"
+        }
+      },
+      "guid": "A",
+      "name": "Marine habitats",
+      "pid": "1000:1",
+      "rasterID": "1"
+    },
+    "B": {
+      "children": {
+        "B1": {
+          "guid": "B1",
+          "name": "Coastal dunes and sandy shores",
+          "pid": "1000:10",
+          "rasterID": "10"
+        },
+        "B2": {
+          "guid": "B2",
+          "name": "Coastal shingle",
+          "pid": "1000:11",
+          "rasterID": "11"
+        },
+        "B3": {
+          "guid": "B3",
+          "name": "Rock cliffs, ledges and shores, including supralittoral",
+          "pid": "1000:12",
+          "rasterID": "12"
+        }
+      },
+      "guid": "B",
+      "name": "Coastal habitats",
+      "pid": "1000:2",
+      "rasterID": "2"
+    },
+    "C": {
+      "guid": "C",
+      "name": "Inland surface waters",
+      "pid": "1000:3",
+      "rasterID": "3"
+    },
+    "D1": {
+      "guid": "D1",
+      "name": "Raised and blanket bogs",
+      "pid": "1000:13",
+      "rasterID": "13"
+    },
+    "E": {
+      "children": {
+        "E4": {
+          "children": {
+            "E4.3": {
+              "guid": "E4.3",
+              "name": "Acid alpine, subalpine and extensive grassland",
+              "pid": "1000:33",
+              "rasterID": "33"
+            },
+            "E4.4": {
+              "guid": "E4.4",
+              "name": "Calcareous alpine, subalpine and extensive grassland",
+              "pid": "1000:34",
+              "rasterID": "34"
+            }
+          },
+          "guid": "E4",
+          "name": "Alpine, subalpine and extensive grasslands",
+          "pid": "1000:14",
+          "rasterID": "14"
+        },
+        "E5": {
+          "children": {
+            "E5.3": {
+              "guid": "E5.3",
+              "name": "Pteridium aquilinum fields",
+              "pid": "1000:35",
+              "rasterID": "35"
+            }
+          },
+          "guid": "E5",
+          "name": "Woodland fringes and clearings and tall forb stands",
+          "pid": "1000:15",
+          "rasterID": "15"
+        }
+      },
+      "guid": "E",
+      "name": "Grasslands and lands dominated by forbs, mosses or lichens",
+      "pid": "1000:4",
+      "rasterID": "4"
+    },
+    "E7.1": {
+      "guid": "E7.1",
+      "name": "Atlantic parkland",
+      "pid": "1000:36",
+      "rasterID": "36"
+    },
+    "F3.1": {
+      "guid": "F3.1",
+      "name": "Temperate thickets and scrub",
+      "pid": "1000:37",
+      "rasterID": "37"
+    },
+    "FA": {
+      "guid": "FA",
+      "name": "Hedgerows",
+      "pid": "1000:28",
+      "rasterID": "28"
+    },
+    "G": {
+      "children": {
+        "G1": {
+          "children": {
+            "G1.4/G1.5": {
+              "guid": "G1.4/G1.5",
+              "name": "Broadleaved swamp woodland",
+              "pid": "1000:63",
+              "rasterID": "63"
+            },
+            "G1.8": {
+              "guid": "G1.8",
+              "name": "Acidophilous Quercus-dominated woodland",
+              "pid": "1000:41",
+              "rasterID": "41"
+            },
+            "G1.9": {
+              "guid": "G1.9",
+              "name": "Non-riverine woodland with Betula, Populus tremula or Sorbus aucuparia",
+              "pid": "1000:42",
+              "rasterID": "42"
+            },
+            "G1.A": {
+              "guid": "G1.A",
+              "name": "Meso- and eutrophic Quercus, Carpinus, Fraxinus, Acer, Tilia, Ulmus and related woodland",
+              "pid": "1000:52",
+              "rasterID": "52"
+            }
+          },
+          "guid": "G1",
+          "name": "Broadleaved deciduous woodland",
+          "pid": "1000:18",
+          "rasterID": "18"
+        },
+        "G3": {
+          "children": {
+            "G3.4": {
+              "guid": "G3.4",
+              "name": "Pinus sylvestris woodland south of the taiga",
+              "pid": "1000:43",
+              "rasterID": "43"
+            },
+            "G3.E": {
+              "guid": "G3.E",
+              "name": "Nemoral bog conifer woodland",
+              "pid": "1000:53",
+              "rasterID": "53"
+            },
+            "G3.F": {
+              "guid": "G3.F",
+              "name": "Highly artificial coniferous plantations",
+              "pid": "1000:54",
+              "rasterID": "54"
+            }
+          },
+          "guid": "G3",
+          "name": "Coniferous woodland",
+          "pid": "1000:19",
+          "rasterID": "19"
+        },
+        "G4": {
+          "guid": "G4",
+          "name": "Mixed deciduous and coniferous woodland",
+          "pid": "1000:20",
+          "rasterID": "20"
+        },
+        "G6": {
+          "guid": "G6",
+          "name": "Exotic woodland and scrub",
+          "pid": "1000:21",
+          "rasterID": "21"
+        }
+      },
+      "guid": "G",
+      "name": "Woodland, forest and other wooded land",
+      "pid": "1000:5",
+      "rasterID": "5"
+    },
+    "I1": {
+      "children": {
+        "I1.2": {
+          "guid": "I1.2",
+          "name": "Mixed crops of market gardens and horticulture",
+          "pid": "1000:47",
+          "rasterID": "47"
+        }
+      },
+      "guid": "I1",
+      "name": "Arable land and market gardens",
+      "pid": "1000:22",
+      "rasterID": "22"
+    },
+    "I2": {
+      "guid": "I2",
+      "name": "Cultivated areas of gardens and parks",
+      "pid": "1000:23",
+      "rasterID": "23"
+    },
+    "J": {
+      "children": {
+        "J1/J2": {
+          "guid": "J1/J2",
+          "name": "Buildings of cities, towns and villages / Low density buildings",
+          "pid": "1000:61",
+          "rasterID": "61"
+        },
+        "J3": {
+          "guid": "J3",
+          "name": "Extractive industrial sites",
+          "pid": "1000:24",
+          "rasterID": "24"
+        },
+        "J3/J6": {
+          "guid": "J3/J6",
+          "name": "Extractive industrial sites / Waste deposits",
+          "pid": "1000:62",
+          "rasterID": "62"
+        },
+        "J4": {
+          "children": {
+            "J4.2": {
+              "guid": "J4.2",
+              "name": "Road networks",
+              "pid": "1000:48",
+              "rasterID": "48"
+            },
+            "J4.21": {
+              "guid": "J4.21",
+              "name": "Motorway",
+              "pid": "1000:57",
+              "rasterID": "57"
+            },
+            "J4.22": {
+              "guid": "J4.22",
+              "name": "A Road",
+              "pid": "1000:58",
+              "rasterID": "58"
+            },
+            "J4.23": {
+              "guid": "J4.23",
+              "name": "B Roads, local streets and minor roads",
+              "pid": "1000:59",
+              "rasterID": "59"
+            },
+            "J4.24": {
+              "guid": "J4.24",
+              "name": "Private roads, publically accessible and restricted",
+              "pid": "1000:60",
+              "rasterID": "60"
+            },
+            "J4.3": {
+              "guid": "J4.3",
+              "name": "Rail networks",
+              "pid": "1000:49",
+              "rasterID": "49"
+            },
+            "J4.5": {
+              "guid": "J4.5",
+              "name": "Hard-surfaced areas of ports",
+              "pid": "1000:50",
+              "rasterID": "50"
+            },
+            "J4.7": {
+              "guid": "J4.7",
+              "name": "Constructed parts of cemeteries",
+              "pid": "1000:51",
+              "rasterID": "51"
+            }
+          },
+          "guid": "J4",
+          "name": "Transport networks and other constructed hard-surfaced areas",
+          "pid": "1000:25",
+          "rasterID": "25"
+        },
+        "J5": {
+          "guid": "J5",
+          "name": "Highly artificial man-made waters and associated structures",
+          "pid": "1000:26",
+          "rasterID": "26"
+        }
+      },
+      "guid": "J",
+      "name": "Constructed, industrial and other artificial habitats",
+      "pid": "1000:6",
+      "rasterID": "6"
+    },
+    "K": {
+      "children": {
+        "K1": {
+          "guid": "K1",
+          "name": "Montane vegetation",
+          "pid": "1000:27",
+          "rasterID": "27"
+        }
+      },
+      "guid": "K",
+      "name": "Montane habitats",
+      "pid": "1000:7",
+      "rasterID": "7"
+    },
+    "X28": {
+      "guid": "X28",
+      "name": "Blanket bog complexes",
+      "pid": "1000:30",
+      "rasterID": "30"
+    }
+  }
+}

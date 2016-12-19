@@ -1,0 +1,9 @@
+- hosts: biocache
+  roles:
+#    - common
+#    - java
+#    - tomcat
+#    - apache
+#    - biocache-properties
+#    - biocache-service
+    - nbn-biocache-config

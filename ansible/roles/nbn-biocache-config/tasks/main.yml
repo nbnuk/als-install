@@ -1,0 +1,9 @@
+- name: Copy NBN specific config files for biocache
+  copy: src={{ item }} dest=/data/biocache/config/
+  with_items:
+    - "subgroups.json"
+    - "charts.json"
+    - "messages.properties"
+  tags:
+    - properties
+    - nbn_config

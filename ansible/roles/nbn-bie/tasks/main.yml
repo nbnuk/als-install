@@ -1,0 +1,7 @@
+- name: Copy NBN specific config files for BIE
+  copy: src={{ item }} dest=/data/nbn-bie/config/
+  with_items:
+    - "charts.json"
+  tags:
+    - properties
+    - nbn_config

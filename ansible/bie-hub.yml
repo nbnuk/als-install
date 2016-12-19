@@ -1,0 +1,8 @@
+- hosts: bie-hub
+  roles:
+#    - common
+#    - java
+#    - apache
+#    - tomcat
+#    - bie-hub
+    - nbn-bie

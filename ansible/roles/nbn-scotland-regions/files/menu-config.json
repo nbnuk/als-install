@@ -1,0 +1,45 @@
+[{
+  "label": "Special Area of Conservation",
+  "fid": "cl9"
+}, {
+  "label": "Ordnance survey 100km grids",
+  "fid": "cl20",
+  "exclude": [
+    "SA", "SB", "SC", "SD", "SE", "SF", "SG", "SH", "SJ", "SK",
+    "SH", "SJ", "SK", "SM", "SN", "SP", "SO", "SR", "SS", "ST", "SV", "SU", "SW", "SX", "SY", "SZ",
+    "TA", "TF", "TG", "TL", "TM", "TQ", "TR", "TV", "OV", "NW"
+  ]
+}, {
+  "label": "National parks",
+  "fid": "cl5",
+  "exclude": [
+    "BRECON BEACONS NATIONAL PARK",
+    "DARTMOOR NATIONAL PARK",
+    "EXMOOR NATIONAL PARK",
+    "LAKE DISTRICT NATIONAL PARK",
+    "NEW FOREST NATIONAL PARK",
+    "NORTH YORK MOORS NATIONAL PARK",
+    "NORTHUMBERLAND NATIONAL PARK",
+    "PEAK DISTRICT NATIONAL PARK",
+    "PEMBROKESHIRE COAST NATIONAL PARK",
+    "SNOWDONIA NATIONAL PARK",
+    "SOUTH DOWNS NATIONAL PARK",
+    "THE BROADS",
+    "YORKSHIRE DALES NATIONAL PARK"
+  ]
+}, {
+  "label": "Wetlands of International Importance",
+  "fid": "cl13"
+}, {
+  "label": "Site of Special Scientific Interest",
+  "fid": "cl6"
+}, {
+  "label": "National Nature Reserves",
+  "fid": "cl11"
+}, {
+  "label": "Local Nature Reserve",
+  "fid": "cl10"
+}, {
+  "label": "Special Protection Areas",
+  "fid": "cl7"
+}]
