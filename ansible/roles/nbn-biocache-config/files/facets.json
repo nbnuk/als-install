@@ -1,19 +1,19 @@
 [{
   "title": "Taxon",
   "facets": [{
-    "sort": "index",
+    "sort": "count",
     "field": "taxon_name"
   }, {
-    "sort": "index",
+    "sort": "count",
     "field": "raw_taxon_name"
   }, {
-    "sort": "index",
+    "sort": "count",
     "field": "subspecies_name"
   }, {
-    "sort": "index",
+    "sort": "count",
     "field": "species"
   }, {
-    "sort": "index",
+    "sort": "count",
     "field": "genus"
   }, {
     "sort": "index",
@@ -77,9 +77,6 @@
     "sort": "index",
     "field": "raw_identification_qualifier"
   }, {
-    "sort": "count",
-    "field": "taxonomic_issue"
-  }, {
     "sort": "index",
     "field": "type_status"
   }, {
@@ -97,6 +94,9 @@
   },{
     "sort": "index",
     "field": "cl18"
+  },{
+    "sort": "index",
+    "field": "cl28"
   },{
     "sort": "index",
     "field": "elevation_d_rng"
@@ -134,10 +134,13 @@
     "sort": "index",
     "field": "month"
   }, {
-    "sort": "index",
+    "sort": "count",
     "field": "year"
   }, {
-    "sort": "index",
+    "sort": "count",
+    "field": "date_precision"
+  }, {
+    "sort": "count",
     "field": "occurrence_decade_i"
   }]
 }, {
@@ -150,7 +153,10 @@
     "field": "multimedia"
   }, {
     "sort": "index",
-    "field": "occurrence_status_s"
+    "field": "occurrence_status"
+  }, {
+    "sort": "index",
+    "field": "individual_count"
   }]
 }, {
   "title": "Assertions",

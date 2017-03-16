@@ -1,0 +1,3 @@
+- hosts: biocache
+  roles:
+    - nbn-biocache-config

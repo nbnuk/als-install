@@ -1,0 +1,9 @@
+- name: Copy NBN specific config files for scotland regions app
+  copy: src={{ item }} dest=/data/regions/config/
+  with_items:
+    - "habitats.json"
+    - "charts.json"
+    - "menu-config.json"
+  tags:
+    - properties
+    - nbn_config

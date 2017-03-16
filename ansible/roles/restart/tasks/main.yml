@@ -1,9 +1,0 @@
-- name: restart tomcat
-  command: "service tomcat7 restart" 
-  tags:
-    - restart
-
-- name: restart apache
-  command: "service apache2 restart" 
-  tags:
-    - restart

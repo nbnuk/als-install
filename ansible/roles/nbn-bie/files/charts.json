@@ -27,7 +27,7 @@
     "emptyValueMsg": "Partner not specified",
     "hideEmptyValues" : true
   },
-  "cl14" : {
+  "cl16" : {
     "title": "By Watsonian Vice County",
     "chartType": "bar",
     "emptyValueMsg": "Not specified",

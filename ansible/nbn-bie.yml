@@ -1,0 +1,3 @@
+- hosts: bie-hub
+  roles:
+    - nbn-bie
