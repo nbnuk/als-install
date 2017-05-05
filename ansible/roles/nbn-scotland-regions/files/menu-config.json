@@ -11,22 +11,7 @@
   ]
 }, {
   "label": "National parks",
-  "fid": "cl5",
-  "exclude": [
-    "BRECON BEACONS NATIONAL PARK",
-    "DARTMOOR NATIONAL PARK",
-    "EXMOOR NATIONAL PARK",
-    "LAKE DISTRICT NATIONAL PARK",
-    "NEW FOREST NATIONAL PARK",
-    "NORTH YORK MOORS NATIONAL PARK",
-    "NORTHUMBERLAND NATIONAL PARK",
-    "PEAK DISTRICT NATIONAL PARK",
-    "PEMBROKESHIRE COAST NATIONAL PARK",
-    "SNOWDONIA NATIONAL PARK",
-    "SOUTH DOWNS NATIONAL PARK",
-    "THE BROADS",
-    "YORKSHIRE DALES NATIONAL PARK"
-  ]
+  "fid": "cl39"
 }, {
   "label": "Wetlands of International Importance",
   "fid": "cl13"
