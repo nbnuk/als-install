@@ -101,9 +101,8 @@ This script installs the name index on machines using the lucene name indexes. T
 ansible-als -i ansible-inventories/als/name-index als-install/ansible/name-index.yml 
 ```
 
-============================================================
-EC2 mounting instructions - for EBS volume
-============================================================
+
+# EC2 mounting instructions - for EBS volume
 
 EBS volumes where used for occurrence-db.als.scot and images.als.scot.
 
@@ -121,9 +120,9 @@ This was done using the following script
 ansible-als -i ansible-inventories/als/... als-install/ansible/ebs-setup.yml
 ```
 
-============================================================
-Microsoft Azure mounting instructions
-============================================================
+
+# Microsoft Azure mounting instructions
+
 
 ```
 sudo fdisk -l
